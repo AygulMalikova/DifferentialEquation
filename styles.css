@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'LMRoman10-Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('LMRoman10-Italic'), url('lmroman10-italic.woff') format('woff');
+}
+
 html, body{
     min-height: 100%;
     width: 100%;
@@ -14,3 +21,99 @@ html, body{
     box-shadow: 0px 0px 104px -13px rgba(112,112,112,1);
     border-radius: 30px;
 }
+.caption{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+
+}
+.caption h2 {
+    font-size: 60px;
+}
+.equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.equation img {
+    width: 300px;
+}
+
+.inner-container {
+    margin-top: 50px;
+    height: 100%;
+}
+.left {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+    width: 30%;
+    font-family: LMRoman10-Italic, serif;
+}
+.right {
+    float: right;
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    background: white;
+    width: 70%;
+}
+.right #myDiv {
+    position: relative;
+    width: 100%;
+}
+.right #myDiv .modebar {
+    margin-right: 30px;
+}
+
+
+form {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+}
+.group {
+    margin: 0 auto;
+    position: relative;
+    width: 80%;
+}
+
+input {
+    width: 28px;
+    border: none;
+}
+input#h {
+    width: 58px;
+}
+input#X {
+    width: 80px;
+}
+
+input:focus {
+    outline: none;
+}
+.form-group button{
+    font-size: 20px;
+    position: relative;
+    width: 50%;
+}
+
+.solution-container {
+    position: relative;
+
+    margin: 50px;
+}
+@media (max-width: 650px) {
+    .solution-container {
+        display: flex;
+        align-items: flex-start;
+    }
+    .right #myDiv {
+        display: flex;
+        align-items: flex-start;
+    }
+}
+
