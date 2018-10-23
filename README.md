@@ -14,7 +14,7 @@ Innopolis University
 ---
 ### Contents
 + <a href="#stack">Stack of used technologies</a>
-+ <a href="#usage">How to use</a>
++ <a href="#install">How to use</a>
 
 <a name="stack">
 
@@ -29,15 +29,24 @@ Additional:
 + Online editor for translating into LateX (https://www.codecogs.com/latex/eqneditor.php)
 + Library for plotting (https://plot.ly/javascript/getting-started/#plotlyjs-cdn)
 
-<a name="usage">
+<a name="install">
 
-### How to use
+## How to install
 </a>
 1.  Download project on your computer
-
- <img src="pictures/download.png" alt="">
+<img src="pictures/download.png" alt="">
 2. Open in editor that supports HTML, CSS and JS 
 (I Use WebStorm)
+
 3. Сheck for compatibility of versions used in the project
-(See <a href="#stack">here</a>
-4. 
+(See <a href="#stack">here</a>)
+4. Project should has this structure: 
+ <img src="pictures/structure.png" alt="">
+5. Open index.html 
+6. In the upper right corner find icons of browsers and open in one of them
+(I Use Chrome)
+
+7. Page in your browser
+<img src="pictures/page.png" alt="">
+
+
