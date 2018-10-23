@@ -17,6 +17,7 @@ Innopolis University
 + <a href="#stack">Stack of used technologies</a>
 + <a href="#install">How to install</a>
 + <a href="#usage">How to use</a>
++ <a href="#more">More</a>
 
 
 <a name="about">
@@ -28,9 +29,9 @@ This is a project for Differential Equation computational practicum.
 The main objective is to produce numerical methods (Euler, Improved Euler and Runge Kutta) for solving 1st order ODE graphically. 
 The equation with initial values is given: 
 
-<img src="pictures/CodeCogsEqn.svg" alt="pictures/CodeCogsEqn.svg">
+<img src="pictures/CodeCogsEqn.svg" alt="pictures/CodeCogsEqn.svg" width="150"> 
+<img src="pictures/initial.png" alt="pictures/initial.png" width="130" height="130">
 
-<img src="pictures/initial.png" alt="pictures/initial.png">
 
 
 <a name="stack">
@@ -68,6 +69,8 @@ Additional:
 6. In the upper right corner find icons of browsers and open in one of them
 (I Use Chrome)
 
+ <img src="pictures/open.png" alt="pictures/open.png">
+
 7. Page in your browser
 
  <img src="pictures/page.png" alt="pictures/page.png">
@@ -78,7 +81,26 @@ Additional:
 ## How to use
 
 </a>
+As you open the page the graphs (general with all 4 methods) and separated (exact - euler, exact - improved euler, exact - runge kutta)
+are plotted with initial values.
+You may input new values and press apply to reload page with changes.
+
+ <img src="pictures/newvalues.png" alt="pictures/newvalues.png" width="130" height="130">
  
+And you will get new results
+ <img src="pictures/newplot.png" alt="pictures/newplot.png">
  
+
+Note that when pointing to a point in the graph, you can also see the locale errors.
+
+<a name="more">
+
+## More
+
+For a more detailed description of the application, 
+solutions and other things, please read the report. 
+
+
+</a>
 
 
