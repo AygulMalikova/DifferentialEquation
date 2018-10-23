@@ -16,6 +16,9 @@ const xImprovedEuler = [];
 const yImprovedEuler = [];
 const xRungeKutta = [];
 const yRungeKutta = [];
+const yEulerError = [];
+const yImprovedEulerError = [];
+const yRungeKuttaError = [];
 initialize();
 
 /**
@@ -33,16 +36,10 @@ document.getElementsByName("x0")[0].addEventListener("input", function (e) {
  * Computing new C value from the input
  * Making new plot
  */
+
 document.getElementById("apply").addEventListener("click", function (evt) {
     evt.preventDefault();
-    xExact.length = 0;
-    yExact.length = 0;
-    xEuler.length = 0;
-    yEuler.length = 0;
-    xImprovedEuler.length = 0;
-    yImprovedEuler.length = 0;
-    xRungeKutta.length = 0;
-    yRungeKutta.length = 0;
+    console.log(evt);
     x0 = +document.getElementsByName("x0")[0].value;
     y0 = +document.getElementsByName("y")[0].value;
     h = +document.getElementsByName("h")[0].value;
@@ -51,13 +48,19 @@ document.getElementById("apply").addEventListener("click", function (evt) {
     if (x0 && y0) {
         initialize();
     }
+    return false;
 });
+
+
 
 function initialize() {
     Exact();
     Euler();
     ImprovedEuler();
     RungeKutta();
+    EulerError();
+    ImprovedEulerError();
+    RungeKuttaError();
     plot();
 }
 
@@ -87,6 +90,8 @@ function partialExactSolution(xn) {
  * Computing y's for the respective x's
  */
 function Exact() {
+    xExact.length = 0;
+    yExact.length = 0;
     yExact.push(+y0);
     for (let i = x0; i <= X; i+=h) {
         xExact.push(+i);
@@ -102,6 +107,8 @@ function Exact() {
  * y[i] = y[i-1] + h*(f(x[i-1], y[i-1])
  */
 function Euler() {
+    xEuler.length = 0;
+    yEuler.length = 0;
     yEuler.push(+y0);
     for (let i = x0; i <= X; i+=h) {
         xEuler.push(+i);
@@ -117,6 +124,8 @@ function Euler() {
  * y[i] = y[i-1] + h*(f(x[i-1] + h/2, y[i-1]+h/2*f(x[i-1], y[i-1])
  */
 function ImprovedEuler() {
+    xImprovedEuler.length = 0;
+    yImprovedEuler.length = 0;
     yImprovedEuler.push(+y0);
     for (let i = x0; i <= X; i+=h) {
         xImprovedEuler.push(+i);
@@ -138,6 +147,8 @@ function ImprovedEuler() {
  */
 
 function RungeKutta() {
+    xRungeKutta.length = 0;
+    yRungeKutta.length = 0;
     yRungeKutta.push(+y0);
     for (let i = x0; i <= X; i+=h) {
         xRungeKutta.push(+i);
@@ -153,10 +164,35 @@ function RungeKutta() {
 }
 
 /**
+ * Computing errors for Euler, Improved Euler and Runge Kutta methods
+ */
+function EulerError() {
+    yEulerError.length = 0;
+    for (let i = 0; i < yEuler.length; i++) {
+        yEulerError.push(+yExact[i] - yEuler[i]);
+    }
+}
+
+function ImprovedEulerError() {
+    yImprovedEulerError.length = 0;
+    for (let i = 0; i < yImprovedEuler.length; i++) {
+        yImprovedEulerError.push(+yExact[i] - yImprovedEuler[i]);
+    }
+}
+
+function RungeKuttaError() {
+    yRungeKuttaError.length = 0;
+    for (let i = 0; i < yRungeKutta.length; i++) {
+        yRungeKuttaError.push(+yExact[i] - yRungeKutta[i]);
+    }
+}
+
+/**
  * Plotting
  */
+
 function plot() {
-    var trace1 = {
+    var Exact = {
         type: 'scatter',
         x: xExact,
         y: yExact,
@@ -168,7 +204,7 @@ function plot() {
         }
     };
 
-    var trace2 = {
+    var Euler = {
         type: 'scatter',
         x: xEuler,
         y: yEuler,
@@ -177,10 +213,18 @@ function plot() {
         line: {
             color: 'rgb(55, 128, 191)',
             width: 1
-        }
+        },
+        error_y: {
+            symmetric: false,
+            type: 'data',
+            array: yEulerError,
+            visible: true,
+            color: 'rgb(55, 128, 191)',
+        },
+
     };
 
-    var trace3 = {
+    var ImprovedEuler = {
         type: 'scatter',
         x: xImprovedEuler,
         y: yImprovedEuler,
@@ -189,10 +233,17 @@ function plot() {
         line: {
             color: 'rgb(16, 232, 50)',
             width: 1
-        }
+        },
+        error_y: {
+            symmetric: false,
+            type: 'data',
+            array: yImprovedEulerError,
+            visible: true,
+            color: 'rgb(16, 232, 50)',
+        },
     };
 
-    var trace4 = {
+    var RungeKutta = {
         type: 'scatter',
         x: xRungeKutta,
         y: yRungeKutta,
@@ -201,9 +252,24 @@ function plot() {
         line: {
             color: 'rgb(0, 0, 0)',
             width: 1
-        }
+        },
+        error_y: {
+            symmetric: false,
+            type: 'data',
+            array: yRungeKuttaError,
+            visible: true,
+            color: 'rgb(0, 0, 0)',
+        },
     };
 
-    var data = [trace1, trace2, trace3, trace4];
+    var data = [Exact, Euler, ImprovedEuler, RungeKutta];
     Plotly.newPlot('myDiv', data);
+    Plotly.newPlot('euler', [Exact, Euler]);
+    Plotly.newPlot('improvedEuler', [Exact, ImprovedEuler]);
+    Plotly.newPlot('rungeKutta', [Exact, RungeKutta]);
 }
+
+
+
+
+
