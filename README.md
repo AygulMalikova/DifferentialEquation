@@ -98,7 +98,7 @@ Note that when pointing to a point in the graph, you can also see the locale err
 ## More
 
 For a more detailed description of the application, 
-solutions and other things, please read the report. 
+solutions and other things, please read the <a href="Report.pdf">
 
 
 </a>
