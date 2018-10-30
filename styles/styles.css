@@ -120,8 +120,13 @@ input:focus {
 
 .solution-container {
     position: relative;
-
     margin: 50px;
+}
+h2 {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    font-size: 3em;
 }
 @media (max-width: 650px) {
     .solution-container {
