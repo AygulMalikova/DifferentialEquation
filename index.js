@@ -54,12 +54,17 @@ document.getElementsByName("x0")[0].addEventListener("input", function (e) {
 
 document.getElementById("apply").addEventListener("click", function (evt) {
     evt.preventDefault();
-    x0 = +document.getElementsByName("x0")[0].value;
-    y0 = +document.getElementsByName("y")[0].value;
-    h = +document.getElementsByName("h")[0].value;
-    X = +document.getElementsByName("x")[0].value;
-    C = (y0-2*x0)/(Math.pow(x0, 3)*(y0 + x0));
-    if (x0 && y0) {
+
+    x0 = document.getElementsByName("x0")[0].value;
+    y0 = document.getElementsByName("y")[0].value;
+    h = document.getElementsByName("h")[0].value;
+    X = document.getElementsByName("x")[0].value;
+    if (x0 && y0 && h && X) {
+        x0 = +x0;
+        y0 = +y0;
+        h = +h;
+        X = +X;
+        C = (y0-2*x0)/(Math.pow(x0, 3)*(y0 + x0));
         initialize();
     }
     return false;
@@ -128,6 +133,9 @@ function Euler() {
     }
     for (let i = 1; i < xEuler.length; i++) {
         yEuler.push(+yEuler[i-1] + h*(equation(+xEuler[i-1], +yEuler[i-1])));
+
+    }
+    for (let i = 0; i < xEuler.length; i++) {
         yEulerErrorGlobal.push(+yExact[i] - yEuler[i]);
         yEulerErrorGlobal2.push(Math.abs(+yExact[i] - yEuler[i]));
         yEulerErrorLocal.push(partialExactSolution(xExact[i+1]) - partialExactSolution(xExact[i]) - h*equation(xExact[i], yExact[i]));
@@ -151,6 +159,8 @@ function ImprovedEuler() {
     for (let i = 1; i < xImprovedEuler.length; i++) {
         yImprovedEuler.push(yImprovedEuler[i-1] + h*(equation(+xImprovedEuler[i-1]+h/2,
             +yImprovedEuler[i-1] + (h/2)*equation(+xImprovedEuler[i-1], +yImprovedEuler[i-1]))));
+    }
+    for (let i = 0; i < xImprovedEuler.length; i++) {
         yImprovedEulerErrorGlobal.push(+yExact[i] - yImprovedEuler[i]);
         yImprovedEulerErrorGlobal2.push(Math.abs(+yExact[i] - yImprovedEuler[i]));
 
@@ -178,15 +188,17 @@ function RungeKutta() {
     for (let i = x0; i <= X; i+=h) {
         xRungeKutta.push(+i);
     }
-    for (let i = 1; i < xImprovedEuler.length; i++) {
+    for (let i = 1; i < xRungeKutta.length; i++) {
         var k1 = equation(+xImprovedEuler[i-1], +yImprovedEuler[i-1]);
         var k2 = equation(+xImprovedEuler[i-1] + h/2, +yImprovedEuler[i-1] + h*k1/2);
         var k3 = equation(+xImprovedEuler[i-1] + h/2, +yImprovedEuler[i-1] + h*k2/2);
         var k4 = equation(+xImprovedEuler[i-1] + h, +yImprovedEuler[i-1] + h*k3);
         yRungeKutta.push(+yImprovedEuler[i-1] + (h/6)*(k1+2*k2+2*k3+k4));
+    }
+    for (let i = 0; i < xRungeKutta.length; i++) {
         yRungeKuttaErrorGlobal.push(+yExact[i] - yRungeKutta[i]);
         yRungeKuttaErrorGlobal2.push(Math.abs(+yExact[i] - yRungeKutta[i]));
-        yRungeKuttaErrorLocal.push(partialExactSolution(xExact[i+1]) - partialExactSolution(xExact[i]) - (h/6)*(k1+2*k2+2*k3+k4))
+        //yRungeKuttaErrorLocal.push(partialExactSolution(xExact[i+1]) - partialExactSolution(xExact[i]) - (h/6)*(k1+2*k2+2*k3+k4));
     }
 }
 
@@ -333,7 +345,7 @@ function plot() {
     Plotly.newPlot('euler', [Exact, Euler]);
     Plotly.newPlot('improvedEuler', [Exact, ImprovedEuler]);
     Plotly.newPlot('rungeKutta', [Exact, RungeKutta]);
-    Plotly.newPlot('local', [LocalEuler, LocalImprovedEuler, LocalRungeKutta]);
+   // Plotly.newPlot('local', [LocalEuler, LocalImprovedEuler, LocalRungeKutta]);
     Plotly.newPlot('globalErrors', [EulerError, EulerImprovedError, RungeKuttaError])
 }
 
